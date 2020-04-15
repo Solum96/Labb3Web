@@ -7,7 +7,7 @@ namespace Labb3Web.Data.Models
 {
     public class Viewing
     {
-        public int Id { get; set; }
+        public string Id { get; set; }
         public DateTime Time { get; set; }
         public Movie Movie { get; set; }
         public List<Ticket> BookedSeats { get; set; }

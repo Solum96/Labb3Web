@@ -20,11 +20,6 @@ namespace Labb3Web.Pages
         public void OnGet()
         {
 
-        }
-
-        public void DoStuff()
-        {
-            _logger.LogInformation("test");
-        }
+        }       
     }
 }
