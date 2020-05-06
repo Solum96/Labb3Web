@@ -62,5 +62,22 @@ namespace Labb3Web.Pages
 
             return Page();
         }
+
+        public IList<Ticket> Tickets { get; set; }
+
+        public async Task<IActionResult> GetTicket()
+        {
+            try
+            {
+                var ticket = await _context.Tickets.Where(ticket => ticket.Booked == false).FirstOrDefaultAsync();
+                Tickets.Add(ticket);
+            }
+            catch
+            {
+
+            }
+
+            return Page();
+        }
     }
 }

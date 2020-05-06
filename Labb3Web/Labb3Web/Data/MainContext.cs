@@ -34,6 +34,8 @@ namespace Labb3Web.Data
             modelBuilder.Entity<Salon>().ToTable("Salons");
             modelBuilder.Entity<Ticket>().ToTable("Tickets");
             modelBuilder.Entity<Viewing>().ToTable("Viewings");
+
+            //modelBuilder.Entity<Viewing>().HasMany("Tickets");
         }
     }
 }

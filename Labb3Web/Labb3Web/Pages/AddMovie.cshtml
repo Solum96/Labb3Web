@@ -33,6 +33,7 @@
         <table class="table">
             <tr>
                 <td>@item.Title</td>
+                <td><input type="submit" value="Book Ticket" class="btn btn-primary" onclick="GetTicket" /></td>
             </tr>
         </table>
     }
@@ -41,6 +42,7 @@
 <div>
     <a asp-page="Index">Back to List</a>
 </div>
+
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
