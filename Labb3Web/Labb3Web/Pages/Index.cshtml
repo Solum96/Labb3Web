@@ -5,9 +5,34 @@
 }
 @using Labb3Web.Data.Models;
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div id="background">
+    <div class="text-center">
+        <table class="table">
+            <tr class="table-row">
+                <td class="table-title"><strong>Title:</strong></td>
+                <td class="table-title"><strong>Time:</strong></td>
+                <td class="table-title"><strong>Price:</strong></td>
+                <td class="table-title"> </td>
+                <td class="table-title"><strong>Tickets left:</strong></td>
+                <td class="table-title"><strong>Your tickets:</strong></td>
+            </tr>
+            @foreach (var item in Model.Viewings){
+                <tr class="table-row">
+                    <td>@item.Movie</td>
+                    <td>@item.Time</td>
+                    <td>100kr</td>
+                    <td><button class="btn btn-primary">Book Tickets</button></td>
+                    <td>@item.TicketsLeft</td>
+                    <td>0</td>
+                </tr>
+            }
+        </table>
+    </div>
 </div>
 
 <!--Add CRUD to PageModel-->
+
+@{ 
+    
+
+}

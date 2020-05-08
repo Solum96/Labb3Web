@@ -13,9 +13,9 @@ namespace Labb3Web.Pages
 {
     public class AddMovieModel : PageModel
     {
-        private readonly Labb3Web.Data.MainContext _context;
+        private readonly MainContext _context;
 
-        public AddMovieModel(Labb3Web.Data.MainContext context)
+        public AddMovieModel(MainContext context)
         {
             _context = context;
         }
@@ -25,8 +25,8 @@ namespace Labb3Web.Pages
         //     return Page();
         // }
 
-        [BindProperty(SupportsGet = true)]
-        public Movie movie { get; set; }
+        //[BindProperty(SupportsGet = true)]
+        //public Movie movie { get; set; }
 
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
@@ -34,30 +34,30 @@ namespace Labb3Web.Pages
         {
             await _context.Database.EnsureCreatedAsync();
 
-            movie.Id = Guid.NewGuid();
+            //movie.Id = Guid.NewGuid();
 
             if (!ModelState.IsValid)
             {
                 return Page();
             }
 
-            await _context.Movies.AddAsync(movie);
+            //await _context.Movies.AddAsync(movie);
             await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");
         }
 
-        public IList<Movie> Movies { get; set; }
+        //public IList<Movie> Movies { get; set; }
 
         public async Task<IActionResult> OnGetAsync()
         {
             try
             {
-                Movies = await _context.Movies.ToListAsync();
+                //Movies = await _context.Movies.ToListAsync();
             }
             catch
             {
-                Movies = new List<Movie>();
+                //Movies = new List<Movie>();
             }
 
             return Page();

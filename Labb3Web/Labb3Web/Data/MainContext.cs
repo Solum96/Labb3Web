@@ -11,10 +11,10 @@ namespace Labb3Web.Data
     {
         public MainContext(DbContextOptions options) : base(options)
         {
-
+            
         }
 
-        public DbSet<Movie> Movies { get; set; }
+        //public DbSet<Movie> Movies { get; set; }
         public DbSet<Salon> Salons { get; set; }
         public DbSet<Ticket> Tickets { get; set; }
         public DbSet<Viewing> Viewings { get; set; }
@@ -30,7 +30,7 @@ namespace Labb3Web.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Movie>().ToTable("Movies");
+           // modelBuilder.Entity<Movie>().ToTable("Movies");
             modelBuilder.Entity<Salon>().ToTable("Salons");
             modelBuilder.Entity<Ticket>().ToTable("Tickets");
             modelBuilder.Entity<Viewing>().ToTable("Viewings");
