@@ -17,14 +17,21 @@
                 <td class="table-title"><strong>Your tickets:</strong></td>
             </tr>
             @foreach (var item in Model.Viewings){
-                <tr class="table-row">
-                    <td>@item.Movie</td>
-                    <td>@item.Time</td>
-                    <td>100kr</td>
-                    <td><button class="btn btn-primary">Book Tickets</button></td>
-                    <td>@item.TicketsLeft</td>
-                    <td>0</td>
-                </tr>
+                    <tr class="table-row">
+                        <td>@item.Movie</td>
+                        <td>@item.Time</td>
+                        <td>100kr</td>
+                        <td>
+                            <div class="form-group">
+                                <form class="form-horizontal" method="post">
+                                    <input for="movie" name="movie" type="hidden" value="@item.Movie" />
+                                    <input type="submit" class="btn btn-primary" value="Book Ticket" />
+                                </form>
+                            </div>
+                        </td>
+                        <td>@item.TicketsLeft</td>
+                        <td>0</td>
+                    </tr>
             }
         </table>
     </div>

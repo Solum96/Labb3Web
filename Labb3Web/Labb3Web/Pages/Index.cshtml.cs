@@ -68,5 +68,26 @@ namespace Labb3Web.Pages
         }     
         
 
+        public async Task<IActionResult> OnPost(string movie)
+        {
+            var entity = await _context.Viewings.Where(o => o.Movie == movie).FirstOrDefaultAsync();
+
+            if (entity == null)
+            {
+                return NotFound();
+            }
+
+            entity.TicketsLeft--;
+
+            if (await TryUpdateModelAsync(entity, "viewing", (item) => (item.TicketsLeft)))
+            {
+                await _context.SaveChangesAsync();
+                return RedirectToPage("./Index");
+            }
+
+            return Page();
+
+        }
+
     }
 }
