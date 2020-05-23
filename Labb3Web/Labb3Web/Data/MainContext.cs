@@ -11,12 +11,9 @@ namespace Labb3Web.Data
     {
         public MainContext(DbContextOptions options) : base(options)
         {
-            
+            Database.EnsureCreated();
         }
 
-        //public DbSet<Movie> Movies { get; set; }
-        public DbSet<Salon> Salons { get; set; }
-        public DbSet<Ticket> Tickets { get; set; }
         public DbSet<Viewing> Viewings { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -30,12 +27,7 @@ namespace Labb3Web.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-           // modelBuilder.Entity<Movie>().ToTable("Movies");
-            modelBuilder.Entity<Salon>().ToTable("Salons");
-            modelBuilder.Entity<Ticket>().ToTable("Tickets");
             modelBuilder.Entity<Viewing>().ToTable("Viewings");
-
-            //modelBuilder.Entity<Viewing>().HasMany("Tickets");
         }
     }
 }

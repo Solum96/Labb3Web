@@ -14,30 +14,40 @@
                 <td class="table-title"><strong>Price:</strong></td>
                 <td class="table-title"> </td>
                 <td class="table-title"><strong>Tickets left:</strong></td>
-                <td class="table-title"><strong>Your tickets:</strong></td>
             </tr>
             @foreach (var item in Model.Viewings){
-                    <tr class="table-row">
-                        <td>@item.Movie</td>
-                        <td>@item.Time</td>
-                        <td>100kr</td>
-                        <td>
-                            <div class="form-group">
-                                <form class="form-horizontal" method="post">
-                                    <input for="movie" name="movie" type="hidden" value="@item.Movie" />
+                <tr class="table-row">
+                    <td>@item.Movie</td>
+                    <td>@item.Time</td>
+                    <td>100kr</td>
+                    <td>
+                        <div class="form-group">
+                            <form class="form-horizontal" method="post">
+                                <input for="movie" name="movie" type="hidden" value="@item.Movie" />
+                                <input for="amount" type="number" name="amount" min="1" />
+                                @if (item.TicketsLeft > 0)
+                                {
                                     <input type="submit" class="btn btn-primary" value="Book Ticket" />
-                                </form>
-                            </div>
-                        </td>
-                        <td>@item.TicketsLeft</td>
-                        <td>0</td>
-                    </tr>
+                                }
+                                else
+                                {
+                                    <input type="submit" class="btn btn-light" disabled="disabled" value="Book Ticket" />
+                                }
+                            </form>
+                        </div>
+                    </td>
+                    <td>@item.TicketsLeft</td>
+                </tr>
             }
         </table>
+        @if(Model.userMessage != null)
+        {
+            <div>
+                <h4>@Model.userMessage</h4>
+            </div>
+        }
     </div>
 </div>
-
-<!--Add CRUD to PageModel-->
 
 @{ 
     

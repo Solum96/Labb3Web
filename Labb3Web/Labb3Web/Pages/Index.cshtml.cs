@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Web.Mvc;
 using Labb3Web.Data;
 using Labb3Web.Data.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -17,6 +18,9 @@ namespace Labb3Web.Pages
         private readonly ILogger<IndexModel> _logger;
 
         public IList<Viewing> Viewings { get; set; }
+        
+        [TempData]
+        public string userMessage { get; set; }
 
         public IndexModel(ILogger<IndexModel> logger, MainContext context)
         {
@@ -26,10 +30,8 @@ namespace Labb3Web.Pages
             _context.Database.EnsureCreated();
         }
 
-        public async void OnGet()
+        public void OnGet()
         {
-            //await _context.Database.EnsureCreatedAsync();
-
             if(_context.Viewings.FirstOrDefault() == default)
             {
                 var movie1 = new Viewing
@@ -53,13 +55,13 @@ namespace Labb3Web.Pages
                     Time = "23:00",
                     TicketsLeft = 50
                 };
-                await _context.Viewings.AddRangeAsync(new[] { movie1, movie2, movie3 });
-                await _context.SaveChangesAsync();
+                _context.Viewings.AddRange(new[] { movie1, movie2, movie3 });
+                _context.SaveChanges();
             }
 
             try
             {
-                Viewings = await _context.Viewings.ToListAsync();
+                Viewings = _context.Viewings.ToList();
             }
             catch
             {
@@ -68,7 +70,7 @@ namespace Labb3Web.Pages
         }     
         
 
-        public async Task<IActionResult> OnPost(string movie)
+        public async Task<IActionResult> OnPost(string movie, int amount)
         {
             var entity = await _context.Viewings.Where(o => o.Movie == movie).FirstOrDefaultAsync();
 
@@ -77,16 +79,29 @@ namespace Labb3Web.Pages
                 return NotFound();
             }
 
-            entity.TicketsLeft--;
+            if(entity.TicketsLeft < amount)
+            {
+                userMessage = "Not enough tickets left. Please try again.";
+                return RedirectToPage("./Index");
+            }
+
+            if (amount > 12)
+            {
+                userMessage = "Maximum amount is 12 tickets. Please try again.";
+                return RedirectToPage("./Index");
+            }
+
+            entity.TicketsLeft -= amount;
 
             if (await TryUpdateModelAsync(entity, "viewing", (item) => (item.TicketsLeft)))
             {
                 await _context.SaveChangesAsync();
+                userMessage = $"Success! You have booked {amount} tickets.";
                 return RedirectToPage("./Index");
             }
 
+            
             return Page();
-
         }
 
     }
